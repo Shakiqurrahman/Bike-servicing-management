@@ -1,0 +1,66 @@
+import httpStatus from 'http-status';
+import catchAsync from '../../utils/catchAsync';
+import sendResponse from '../../utils/sendResponse';
+import { authService } from './authService';
+
+const registerUser = catchAsync(async (req, res) => {
+    const { user, accessToken, refreshToken } =
+        await authService.registerUserIntoDB(req.body);
+
+    res.cookie('refreshToken', refreshToken, {
+        expires: new Date(Date.now() + 3600000 * 24 * 30), // 30 day
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        // sameSite: 'strict',
+    });
+
+    sendResponse(res, {
+        statusCode: httpStatus.CREATED,
+        success: true,
+        message: 'User registered successfully!',
+        data: {
+            user: user,
+            accessToken,
+        },
+    });
+});
+
+const loginUser = catchAsync(async (req, res) => {
+    const { user, accessToken, refreshToken } =
+        await authService.loginUserFromDB(req.body);
+
+    res.cookie('refreshToken', refreshToken, {
+        expires: new Date(Date.now() + 3600000 * 24 * 30), // 30 day
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        // sameSite: 'strict',
+    });
+
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        message: 'User Login successfully!',
+        data: {
+            user,
+            accessToken,
+        },
+    });
+});
+
+const refreshToken = catchAsync(async (req, res) => {
+    const { refreshToken } = req.cookies;
+    const accessToken = await authService.generateNewAccessToken(refreshToken);
+
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        message: 'Access token is retrieved succesfully!',
+        data: accessToken,
+    });
+});
+
+export const authController = {
+    registerUser,
+    loginUser,
+    refreshToken,
+};
