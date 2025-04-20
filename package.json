@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "tsnd --respawn ./src/server.ts",
     "start": "node ./dist/server.ts",
-    "build": "tsc",
+    "build": "prisma generate && tsc",
     "lint": "eslint src/**/*.ts",
     "lint:fix": "eslint src/**/*.ts --fix"
   },
