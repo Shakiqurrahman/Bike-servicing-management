@@ -132,12 +132,14 @@ exports.Prisma.BikeScalarFieldEnum = {
   brand: 'brand',
   model: 'model',
   year: 'year',
+  customerId: 'customerId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
 
 exports.Prisma.ServiceRecordScalarFieldEnum = {
   serviceId: 'serviceId',
+  bikeId: 'bikeId',
   serviceDate: 'serviceDate',
   completionDate: 'completionDate',
   description: 'description',

@@ -3,9 +3,11 @@
 
 import { ErrorRequestHandler } from 'express';
 import { ZodError } from 'zod';
+import { Prisma } from '../../prisma/generated/prisma-client';
 import { config } from '../config/config';
 import AppError from '../errors/AppError';
 import handleDuplicateError from '../errors/handleDuplicateError';
+import handlePrismaError from '../errors/handlePrismaError';
 import handleZodError from '../errors/handleZodError';
 import { TErrorSources } from '../interface/error';
 
@@ -25,7 +27,14 @@ const globalErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
         statusCode = simplifiedError?.statusCode;
         message = simplifiedError?.message;
         errorSources = simplifiedError?.errorSources;
-    } else if (err?.code === 11000) {
+    } 
+    else if (err instanceof Prisma.PrismaClientKnownRequestError) {
+        const simplifiedError = handlePrismaError(err);
+        statusCode = simplifiedError?.statusCode;
+        message = simplifiedError?.message;
+        errorSources = simplifiedError?.errorSources;
+    }
+     else if (err?.code === 11000) {
         const simplifiedError = handleDuplicateError(err);
         statusCode = simplifiedError?.statusCode;
         message = simplifiedError?.message;
