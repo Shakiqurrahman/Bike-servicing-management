@@ -1,0 +1,12 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.bikeRoutes = void 0;
+const express_1 = require("express");
+const validate_1 = require("../../middlewares/validate");
+const bikeController_1 = require("./bikeController");
+const bikeValidation_1 = require("./bikeValidation");
+const router = (0, express_1.Router)();
+router.post('/', (0, validate_1.validate)(bikeValidation_1.bikeValidation.createBike), bikeController_1.bikeControllers.createBike);
+router.get('/', bikeController_1.bikeControllers.getAllBike);
+router.get('/:bikeId', bikeController_1.bikeControllers.getBikeById);
+exports.bikeRoutes = router;
