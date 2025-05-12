@@ -88,9 +88,11 @@ web_modules/
 .next
 out
 
+prisma/generated
+
 # Nuxt.js build / generate output
 .nuxt
-# dist
+dist
 
 # Gatsby files
 .cache/
