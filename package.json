@@ -5,10 +5,10 @@
   "scripts": {
     "dev": "tsnd --respawn ./src/server.ts",
     "start": "node ./dist/server.js",
-    "build": "prisma generate && tsc",
+    "postinstall": "prisma generate",
+    "build": "tsc",
     "lint": "eslint src/**/*.ts",
-    "lint:fix": "eslint src/**/*.ts --fix",
-    "postinstall": "prisma generate"
+    "lint:fix": "eslint src/**/*.ts --fix"
   },
   "keywords": [],
   "author": "",
