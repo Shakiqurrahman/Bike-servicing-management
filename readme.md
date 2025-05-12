@@ -2,13 +2,13 @@
 
 A backend API built for managing bike servicing operations at a bike servicing center. This system allows the center to manage customers, bikes, and service records efficiently with support for assignment, completion tracking, and overdue service identification.
 
-<!-- ---
+---
 
 ## 🔗 Live Backend
 
-[https://bike-servicing-api.onrender.com](https://bike-servicing-api.onrender.com)
+[https://bike-servicing-management-ivory.vercel.app](https://bike-servicing-management-ivory.vercel.app)
 
---- -->
+---
 
 ## 🛠 Tech Stack
 
